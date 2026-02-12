@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fresh Fruits - 120+ Items</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body { background:#f3f4f6; }
+.card img{
+    height:150px;
+    width:100%;
+    object-fit:cover;
+}
+</style>
+</head>
+<body>
+
+<header class="bg-green-600 text-white p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">🍎 Fresh Fruits (120+ Items)</h1>
+    <button onclick="goToCart()" class="bg-white text-green-600 px-4 py-2 rounded font-semibold">
+        🛒 Cart (<span id="cartCount">0</span>)
+    </button>
+</header>
+
+<div class="p-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6" id="fruitsContainer">
+</div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function updateCartCount(){
+    document.getElementById("cartCount").innerText = cart.length;
+}
+updateCartCount();
+
+function addToCart(name, price, image){
+    cart.push({name, price, image});
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+    alert(name + " added to cart!");
+}
+
+const fruitsContainer = document.getElementById("fruitsContainer");
+
+const fruits = [
+{ name:"Apple", img:"https://source.unsplash.com/300x300/?apple" },
+{ name:"Banana", img:"https://source.unsplash.com/300x300/?banana" },
+{ name:"Mango", img:"https://source.unsplash.com/300x300/?mango" },
+{ name:"Orange", img:"https://source.unsplash.com/300x300/?orange-fruit" },
+{ name:"Grapes", img:"https://source.unsplash.com/300x300/?grapes" },
+{ name:"Pineapple", img:"https://source.unsplash.com/300x300/?pineapple" },
+{ name:"Watermelon", img:"https://source.unsplash.com/300x300/?watermelon" },
+{ name:"Strawberry", img:"https://source.unsplash.com/300x300/?strawberry" },
+{ name:"Kiwi", img:"https://source.unsplash.com/300x300/?kiwi-fruit" },
+{ name:"Papaya", img:"https://source.unsplash.com/300x300/?papaya" },
+{ name:"Dragon Fruit", img:"https://source.unsplash.com/300x300/?dragon-fruit" },
+{ name:"Pomegranate", img:"https://source.unsplash.com/300x300/?pomegranate" },
+{ name:"Guava", img:"https://source.unsplash.com/300x300/?guava" },
+{ name:"Lychee", img:"https://source.unsplash.com/300x300/?lychee" },
+{ name:"Cherry", img:"https://source.unsplash.com/300x300/?cherry-fruit" },
+{ name:"Blueberry", img:"https://source.unsplash.com/300x300/?blueberries" },
+{ name:"Blackberry", img:"https://source.unsplash.com/300x300/?blackberries" },
+{ name:"Raspberry", img:"https://source.unsplash.com/300x300/?raspberry" },
+{ name:"Peach", img:"https://source.unsplash.com/300x300/?peach-fruit" },
+{ name:"Pear", img:"https://source.unsplash.com/300x300/?pear-fruit" }
+];
+
+
+
+fruits.forEach(fruit => {
+
+    let price = Math.floor(Math.random()*120) + 40;
+
+    fruitsContainer.innerHTML += `
+    <div class="card bg-white p-4 rounded shadow text-center hover:shadow-lg transition">
+        <img src="${fruit.img}" alt="${fruit.name}">
+        <h2 class="font-semibold text-lg mt-2">${fruit.name}</h2>
+        <p class="text-green-600 font-bold mt-1">₹${price}</p>
+        <button onclick="addToCart('${fruit.name}', ${price}, '${fruit.img}')"
+            class="mt-3 bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
+            Add to Cart
+        </button>
+    </div>
+    `;
+});
+
+function goToCart(){
+    window.location.href="order.html"; 
+}
+</script>
+
+
+</body>
+</html>
